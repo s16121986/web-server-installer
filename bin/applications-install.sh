@@ -1,4 +1,4 @@
-# https://plafon.gitbook.io/fedora-zero/fedora-zero/v-samom-nachale-...
+#!/bin/bash
 
 flatpak install flathub org.telegram.desktop
 

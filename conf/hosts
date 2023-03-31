@@ -1,0 +1,11 @@
+
+# home devices
+192.168.1.1  router.home
+192.168.1.10 server.home
+192.168.1.64 camera.home
+
+# home services
+192.168.1.10 torrents.home
+192.168.1.10 admin.smart.home
+192.168.1.10 api.hfgh.ru
+192.168.1.10 smarthome.hfgh.ru

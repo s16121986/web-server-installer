@@ -1,7 +1,9 @@
 #!/bin/bash
 
-./applications-install.sh
+./bin/applications-install.sh
 
-./home-setup.sh
+./bin/home-setup.sh
 
-./webserver-install.sh
+./bin/webserver-install.sh
+
+./bin/hosts-setup.sh

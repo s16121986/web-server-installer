@@ -1,0 +1,8 @@
+/.idea
+
+*.*~
+Thumbs.db
+.gitattributes
+.htpasswd
+
+*.log
