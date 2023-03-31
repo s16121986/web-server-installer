@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=PhpStorm
+Comment=PhpStorm Desktop
+Exec=/opt/PhpStorm/bin/phpstorm.sh
+Path=/opt/PhpStorm/bin/
+Icon=/opt/PhpStorm/bin/phpstorm.svg
+Terminal=false
+Type=Application
+Categories=Development;
