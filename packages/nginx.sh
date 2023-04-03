@@ -3,31 +3,37 @@
 set -e
 
 cwd=$(pwd)
+u=$(id -nu 1000)
 
-dnf -y install nginx
-systemctl enable nginx
+if [ -z $(sudo dnf list installed | grep nginx) ]; then
 
-mkdir -p /etc/nginx/conf.d
-chown -R dev:dev /etc/nginx/conf.d
-#chmod 0755 /etc/nginx/conf.d
-find /etc/nginx/conf.d -type f -exec chmod 644 {} \;
+  sudo dnf -y -q install nginx
+  sudo systemctl enable nginx
 
-mkdir -p /etc/nginx/sites-available
-cp ./etc/nginx/sites-available/* /etc/nginx/sites-available
-chown -R dev:dev /etc/nginx/sites-available
-#chmod 0755 /etc/nginx/sites-available
-find /etc/nginx/sites-available -type f -exec chmod 644 {} \;
+  sudo mkdir -p /etc/nginx/conf.d
+  sudo chown -R 1000:1000 /etc/nginx/conf.d
+  #chmod 0755 /etc/nginx/conf.d
+  find /etc/nginx/conf.d -type f -exec sudo chmod 0644 {} \;
 
-mkdir -p /etc/nginx/sites-enabled
-cd /etc/nginx/sites-enabled
-ln -s ../sites-available/* .
-cd "$cwd"
-chown -R dev:dev /etc/nginx/sites-enabled
-#chmod 0755 /etc/nginx/sites-enabled
-find /etc/nginx/sites-enabled -type f -exec chmod 644 {} \;
+  sudo mkdir -p /etc/nginx/sites-available
+  cp ./conf/nginx/sites-available/* /etc/nginx/sites-available
+  sudo chown -R 1000:1000 /etc/nginx/sites-available
+  #chmod 0755 /etc/nginx/sites-available
+  find /etc/nginx/sites-available -type f -exec sudo chmod 0644 {} \;
 
-chown -R dev:dev /etc/nginx/nginx.conf
-#chmod 0644 /etc/nginx/nginx.conf
+  sudo mkdir -p /etc/nginx/sites-enabled
+  cd /etc/nginx/sites-enabled
+  sudo ln -s ../sites-available/* .
+  cd "$cwd"
+  sudo chown -R 1000:1000 /etc/nginx/sites-enabled
+  #chmod 0755 /etc/nginx/sites-enabled
+  find /etc/nginx/sites-enabled -type f -exec sudo chmod 0644 {} \;
 
-usermod -a -G nginx dev
-usermod -a -G web nginx
+  sudo chown -R 1000:1000 /etc/nginx/nginx.conf
+  #sudo chmod 0644 /etc/nginx/nginx.conf
+
+  sudo usermod -a -G nginx "${u}"
+  sudo usermod -a -G www-data nginx
+else
+  echo "Nginx already installed"
+fi

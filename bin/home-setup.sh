@@ -1,8 +1,14 @@
 #!/bin/bash
 
-cp ./conf/home/.bash_aliases ~
-cp ./conf/home/.bash_macros ~
+u=$(id -nu 1000)
 
-cp ./conf/home/.gitignore ~
+function _cp {
+  cp "./conf/home/${1}" "/home/${u}/"
+  #chown 1000:1000 "/home/${u}/${1}"
+}
 
-cp ./conf/PhpStorm.desktop ~/.local/share/applications/PhpStorm.desktop
+_cp .bash_aliases
+_cp .bash_macros
+_cp .gitignore
+
+#cp ./conf/PhpStorm.desktop /home/admin/.local/share/applications/PhpStorm.desktop

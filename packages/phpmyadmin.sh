@@ -15,21 +15,26 @@ INSTALL_PATH=${2:-/var/www/libs/phpmyadmin}
 
 cd /tmp
 
-mkdir -p "${INSTALL_PATH}"
+if [ -d "${INSTALL_PATH}" ]; then
+  rm -rf "${INSTALL_PATH}"
+fi
+
+sudo mkdir -p "${INSTALL_PATH}"
 
 wget -q "https://files.phpmyadmin.net/phpMyAdmin/${VER}/phpMyAdmin-${VER}-all-languages.zip"
 unzip -q phpMyAdmin-*-all-languages.zip
 rm /tmp/phpMyAdmin-*-all-languages.zip
-mv /tmp/phpMyAdmin-*-all-languages/* "${INSTALL_PATH}"
+sudo mv /tmp/phpMyAdmin-*-all-languages/* "${INSTALL_PATH}"
 rm -rf "/tmp/phpMyAdmin-${VER}-all-languages"
 
 wget -q "https://files.phpmyadmin.net/themes/darkwolf/${THEME_VER}/darkwolf-${THEME_VER}.zip"
 unzip -q darkwolf-*.zip
 rm /tmp/darkwolf-*.zip
-mv /tmp/darkwolf "${INSTALL_PATH}/themes"
-
-if [ -f "./conf/phpmyadmin/config.inc.php" ]; then
-  cp "./conf/phpmyadmin/config.inc.php" "${INSTALL_PATH}"
-fi
+sudo mv /tmp/darkwolf "${INSTALL_PATH}/themes"
 
 cd "${cwd}"
+
+sudo cp "./conf/phpmyadmin/config.inc.php" "${INSTALL_PATH}/"
+
+sudo cp "./conf/phpmyadmin/phpmyadmin.conf" "/etc/nginx/conf.d/"
+sudo chown -R 1000:1000 /etc/nginx/conf.d/phpmyadmin.conf

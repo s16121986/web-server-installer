@@ -1,15 +1,21 @@
 #!/bin/bash
 
 cwd=$(pwd)
-INSTALL_PATH="/tmp/linux-setup"
+INSTALL_PATH="/tmp/linux-bootstrap"
 
 cd /tmp
 
-wget -q "https://github.com/s16121986/linux-setup/archive/refs/heads/main.zip"
-unzip -q main.zip
-rm /tmp/main.zip
-rename /tmp/linux-setup-main "${INSTALL_PATH}"
+if [ -d "${INSTALL_PATH}" ]; then
+  rm -rf "${INSTALL_PATH}"
+fi
+
+wget -q "https://github.com/s16121986/linux-bootstrap/archive/refs/heads/fedora-37.zip"
+unzip -q fedora-37.zip
+rm /tmp/fedora-37.zip
+mv /tmp/linux-bootstrap-fedora-37 "${INSTALL_PATH}"
+
+find "${INSTALL_PATH}" -name "*.sh" -exec chmod 0744 {} \;
+
+alias boot="${INSTALL_PATH}/install.sh"
 
 cd "${INSTALL_PATH}"
-
-find ./ -iname "*.sh" -exec chmod 644 {} \;
