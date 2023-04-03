@@ -14,9 +14,9 @@ sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfre
 # Fedora external repository
 #dnf install fedora-workstation-repositories
 
-dnf -y install google-chrome-stable
+#dnf -y install google-chrome-stable
 
-dnf -y install telegram-desktop
+#dnf -y install telegram-desktop
 
 #dnf config-manager --add-repo https://packages.microsoft.com/yumrepos/edge
 #dnf install microsoft-edge-stable

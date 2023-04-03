@@ -4,7 +4,6 @@ set -e
 
 #alias dnf='apt'
 
-cwd=$(pwd)
 u=$(id -nu 1000)
 
 sudo usermod -a -G www-data "${u}"
@@ -16,25 +15,32 @@ sudo dnf config-manager --set-enabled remi
 
 ./packages/php.sh 81 30
 ./packages/php.sh 74 10
-sudo ln -s /usr/bin/php81 /usr/bin/php
+
+if [ ! -f /usr/bin/php ]; then
+  sudo ln -s /usr/bin/php81 /usr/bin/php
+fi
 
 ./packages/nginx.sh
 
 ./packages/mysql.sh
 
-sudo dnf -y install supervisor
-sudo systemctl enable supervisor
+if [ -z $(sudo dnf list installed | grep supervisor) ]; then
+  sudo dnf -y install supervisor
+  sudo systemctl enable supervisor
+fi
 
-sudo mkdir /var/www/sites
-#mkdir /var/www/sites/ustabor.uz
-#mkdir /var/www/sites/gotostans.com
-#mkdir /var/www/sites/online-express.ru
-sudo mkdir /var/www/libs
+if [ ! -d /var/www/sites ]; then
+  sudo mkdir /var/www/sites
+  #mkdir /var/www/sites/ustabor.uz
+  #mkdir /var/www/sites/gotostans.com
+  #mkdir /var/www/sites/online-express.ru
+  sudo mkdir /var/www/libs
+fi
 
 ./packages/phpmyadmin.sh 5.2.1 /var/www/libs/phpmyadmin
 
 ./packages/composer.sh
 
-./packages/docker.sh
+#./packages/docker.sh
 
 sudo chown -R 1000:www-data /var/www
