@@ -5,10 +5,14 @@ set -e
 cwd=$(pwd)
 u=$(id -nu 1000)
 
-if [ -z $(sudo dnf list installed | grep nginx) ]; then
+if [ -z $(sudo apt list installed | grep nginx) ]; then
 
-  sudo dnf -y -q install nginx
+  sudo apt -y -q install nginx
   sudo systemctl enable nginx
+
+#  sudo useradd nginx
+#  sudo usermod -g www-data nginx
+#  sudo usermod -u 976 nginx
 
   sudo mkdir -p /etc/nginx/conf.d
   sudo chown -R 1000:1000 /etc/nginx/conf.d
@@ -23,7 +27,7 @@ if [ -z $(sudo dnf list installed | grep nginx) ]; then
 
   sudo mkdir -p /etc/nginx/sites-enabled
   cd /etc/nginx/sites-enabled
-  sudo ln -s ../sites-available/* .
+  sudo ln -s ../sites-available/*.conf .
   cd "$cwd"
   sudo chown -R 1000:1000 /etc/nginx/sites-enabled
   #chmod 0755 /etc/nginx/sites-enabled
@@ -31,9 +35,6 @@ if [ -z $(sudo dnf list installed | grep nginx) ]; then
 
   sudo chown -R 1000:1000 /etc/nginx/nginx.conf
   #sudo chmod 0644 /etc/nginx/nginx.conf
-
-  sudo usermod -a -G nginx "${u}"
-  sudo usermod -a -G www-data nginx
 else
   echo "Nginx already installed"
 fi

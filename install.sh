@@ -2,6 +2,13 @@
 
 set -e
 
+sudo apt -y install wget
+
+sudo apt -y install zip
+
+sudo apt -y install git
+git config --global credential.helper store
+
 #ROOT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 case $1 in

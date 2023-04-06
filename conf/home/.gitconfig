@@ -1,0 +1,7 @@
+[user]
+	name = Гурьянов Сергей
+	email = s16121986@yandex.ru
+[credential]
+	helper = store
+[core]
+	autocrlf = true

@@ -8,7 +8,13 @@ function _cp {
 }
 
 _cp .bash_aliases
-_cp .bash_macros
+#_cp .bash_macros
 _cp .gitignore
+
+cp "./conf/home/.bash/*" "/home/${u}/.bash/"
+
+find /home/dev/.bash/ -type f -exec sudo chmod 0750 {} \;
+
+sudo ln -s /home/dev/.bash/dev.sh /usr/local/bin/dev
 
 #cp ./conf/PhpStorm.desktop /home/admin/.local/share/applications/PhpStorm.desktop
