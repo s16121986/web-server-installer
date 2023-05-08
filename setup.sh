@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -z $(which zip) ]; then
+  sudo apt -y install zip
+fi
+
 cwd=$(pwd)
 INSTALL_PATH="/tmp/linux-bootstrap"
 
@@ -9,10 +13,10 @@ if [ -d "${INSTALL_PATH}" ]; then
   rm -rf "${INSTALL_PATH}"
 fi
 
-wget -q "https://github.com/s16121986/linux-bootstrap/archive/refs/heads/fedora-37.zip"
-unzip -q fedora-37.zip
-rm /tmp/fedora-37.zip
-mv /tmp/linux-bootstrap-fedora-37 "${INSTALL_PATH}"
+wget -q "https://github.com/s16121986/linux-bootstrap/archive/refs/heads/wsl-debian.zip"
+unzip -q wsl-debian.zip
+rm /tmp/wsl-debian.zip
+mv /tmp/linux-bootstrap-wsl-debian "${INSTALL_PATH}"
 
 find "${INSTALL_PATH}" -name "*.sh" -exec chmod 0744 {} \;
 

@@ -1,11 +1,12 @@
 #!/bin/bash
+
 set -e
 
-phpKey="php${1}"
-extPrefix="php${1}"
-priority=${2}
+phpKey="php81"
+extPrefix="php81"
+priority=20
 
-if [ ! -d "/opt/remi/${phpKey}" ]; then
+if [ ! -f /usr/bin/php74 ]; then
   sudo apt -y -q install "${phpKey}"
   sudo apt -y -q install "${extPrefix}-mysqlnd"
   sudo apt -y -q install "${extPrefix}-fpm"
@@ -19,6 +20,10 @@ if [ ! -d "/opt/remi/${phpKey}" ]; then
   #sudo update-alternatives --install /usr/local/bin/php php "/opt/remi/${phpKey}/root/bin/php" "${priority}"
 
   #ln -s "/opt/remi/php/${1}/bin/php" "/usr/bin/${phpKey}"
-else
-  echo "${phpKey} already installed"
+
+  sudo chown -R 1000:1000 /etc/php/8.1/fpm
+
+  if [ ! -f /usr/bin/php ]; then
+    sudo ln -s /usr/bin/php81 /usr/bin/php
+  fi
 fi

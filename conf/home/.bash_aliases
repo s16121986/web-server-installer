@@ -12,7 +12,8 @@ alias myip="ip --brief address show"
 alias ports="netstat -tulanp"
 alias su="sudo -i"
 
-# dev
+alias switch-php="sudo update-alternatives --config php"
+
 alias gs="git status"
 alias gf="git fetch"
 alias gr="git reset --hard && git clean -df"
@@ -27,7 +28,9 @@ alias ci="composer install"
 alias composer74="/usr/bin/php7.4 /usr/local/bin/composer"
 
 alias np="npm run prod"
-alias nd="npm run dev watch"
+alias nd="npm run dev"
+alias ndw="npm run dev watch"
+alias nb="npm run build"
 alias nu="npm update && npx browserslist@latest --update-db"
 alias ni="npm install && npx browserslist@latest --update-db"
 
