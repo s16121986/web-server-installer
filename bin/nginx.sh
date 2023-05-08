@@ -5,7 +5,7 @@ set -e
 cwd=$(pwd)
 u=$(id -nu 1000)
 
-if [ -z $(sudo apt list installed | grep nginx) ]; then
+if [ -z $(which nginx) ]; then
 
   sudo apt -y -q install nginx
   sudo systemctl enable nginx
@@ -20,18 +20,17 @@ if [ -z $(sudo apt list installed | grep nginx) ]; then
   find /etc/nginx/conf.d -type f -exec sudo chmod 0644 {} \;
 
   sudo mkdir -p /etc/nginx/sites-available
-  cp ./conf/nginx/sites-available/* /etc/nginx/sites-available
-  sudo chown -R 1000:1000 /etc/nginx/sites-available
+  sudo chown 1000:1000 /etc/nginx/sites-available
   #chmod 0755 /etc/nginx/sites-available
-  find /etc/nginx/sites-available -type f -exec sudo chmod 0644 {} \;
+  #find /etc/nginx/sites-available -type f -exec sudo chmod 0644 {} \;
 
   sudo mkdir -p /etc/nginx/sites-enabled
-  cd /etc/nginx/sites-enabled
-  sudo ln -s ../sites-available/*.conf .
-  cd "$cwd"
-  sudo chown -R 1000:1000 /etc/nginx/sites-enabled
+  sudo chown 1000:1000 /etc/nginx/sites-enabled
+  #cd /etc/nginx/sites-enabled
+  #sudo ln -s ../sites-available/*.conf .
+  #cd "$cwd"
   #chmod 0755 /etc/nginx/sites-enabled
-  find /etc/nginx/sites-enabled -type f -exec sudo chmod 0644 {} \;
+  #find /etc/nginx/sites-enabled -type f -exec sudo chmod 0644 {} \;
 
   sudo chown -R 1000:1000 /etc/nginx/nginx.conf
   #sudo chmod 0644 /etc/nginx/nginx.conf

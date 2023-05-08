@@ -4,4 +4,6 @@
 [credential]
 	helper = store
 [core]
-	autocrlf = true
+	eol = lf
+	autocrlf = input
+	safecrlf = warn

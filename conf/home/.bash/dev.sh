@@ -42,8 +42,11 @@ case $1 in
   dev chmod:w "${d}/storage"
   ;;
 
-"laravel:clear")
-  > ./storage/logs/*.log
+"clear-logs")
+  d="${2:-.}"
+  find "${d}" -type f -name *.log -exec sh -c ">{}" \;
+  #for file in "${d}/*.log"; do > "$file"; done
+  #truncate -s 0 "${d}/*.log"
   ;;
 
 "nginxenconf")
@@ -79,6 +82,7 @@ case $1 in
   dev chmod:w [dir]             Set writeable files permissions (0660, 0770 to folders)
   dev laravel:boot [dir]        Set default owner & permissions to LaravelApp folders
   dev laravel:mk:storage [dir]  Create storage folders
+  dev clear-logs [dir]          Disable nginx conf
   dev nginxenconf <conf name>   Enable nginx conf
   dev nginxdisconf <conf name>  Disable nginx conf"
   ;;
