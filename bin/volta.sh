@@ -6,11 +6,14 @@ if [ -z $(which volta) ]; then
   curl https://get.volta.sh | bash
 
   echo "
-  export VOLTA_HOME=\"$HOME/.volta\"
-  export PATH=\"$VOLTA_HOME/bin:$PATH\"
-  " >~/.bashrc
+export VOLTA_HOME=\"$HOME/.volta\"
+export PATH=\"$VOLTA_HOME/bin:$PATH\"
+" >>~/.bashrc
 
-  volta list
+  export VOLTA_HOME=~/.volta
+  export PATH="$VOLTA_HOME/bin:$PATH"
+
+  volta install node@latest
 else
   echo "Volta already installed"
 fi

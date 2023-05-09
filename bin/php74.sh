@@ -2,8 +2,8 @@
 
 set -e
 
-phpKey="php74"
-extPrefix="php74"
+phpKey="php7.4"
+extPrefix="php7.4"
 priority=10
 
 if [ ! -f /usr/bin/php74 ]; then

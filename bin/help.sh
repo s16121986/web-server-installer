@@ -2,12 +2,15 @@
 
 set -e
 
-help="Usage: "
+BOOT_PATH="/tmp/wsl-boot"
+help="Usage:"
 
-cd ./bin
+cd "$BOOT_PATH/bin"
 
 for i in *; do
-  help="${help}\n  ./install.sh ${i%.*}"
+  help="${help}\n  boot ${i%.*}"
 done
+
+#help="${help}\n  boot www <site>"
 
 echo -e $help

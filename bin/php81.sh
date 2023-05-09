@@ -2,11 +2,19 @@
 
 set -e
 
-phpKey="php81"
-extPrefix="php81"
+phpKey="php8.1"
+extPrefix="php8.1"
 priority=20
 
-if [ ! -f /usr/bin/php74 ]; then
+# Setup php repository
+if [ ! -f /etc/apt/sources.list.d/php.list ]; then
+  sudo apt install apt-transport-https lsb-release ca-certificates wget -y
+  sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+  sudo sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+  sudo apt update
+fi
+
+if [ ! -f /usr/bin/php81 ]; then
   sudo apt -y -q install "${phpKey}"
   sudo apt -y -q install "${extPrefix}-mysqlnd"
   sudo apt -y -q install "${extPrefix}-fpm"
@@ -23,7 +31,7 @@ if [ ! -f /usr/bin/php74 ]; then
 
   sudo chown -R 1000:1000 /etc/php/8.1/fpm
 
-  if [ ! -f /usr/bin/php ]; then
-    sudo ln -s /usr/bin/php81 /usr/bin/php
-  fi
+#  if [ ! -f /usr/bin/php ]; then
+#    sudo ln -s /usr/bin/php81 /usr/bin/php
+#  fi
 fi

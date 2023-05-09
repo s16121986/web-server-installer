@@ -7,6 +7,7 @@ function version_major {
   echo "${array[0]}.${array[1]}"
 }
 
+BOOT_PATH="/tmp/wsl-boot"
 cwd=$(pwd)
 SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VER="${1:-5.2.1}"
@@ -34,7 +35,7 @@ sudo mv /tmp/darkwolf "${INSTALL_PATH}/themes"
 
 cd "${cwd}"
 
-sudo cp "./conf/phpmyadmin/config.inc.php" "${INSTALL_PATH}/"
+sudo cp "$BOOT_PATH/conf/phpmyadmin/config.inc.php" "${INSTALL_PATH}/"
 
-sudo cp "./conf/phpmyadmin/phpmyadmin.conf" "/etc/nginx/conf.d/"
+sudo cp "$BOOT_PATH/conf/phpmyadmin/phpmyadmin.conf" "/etc/nginx/conf.d/"
 sudo chown -R 1000:1000 /etc/nginx/conf.d/phpmyadmin.conf

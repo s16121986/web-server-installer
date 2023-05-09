@@ -50,28 +50,33 @@ case $1 in
   ;;
 
 "nginxenconf")
-  if [ -f "/etc/nginx/sites-enabled/${1}.conf" ]; then
-    echo "${1}.conf already enabled"
-  elif [ -f "/etc/nginx/sites-available/${1}.conf" ]; then
+  if [ -f "/etc/nginx/sites-enabled/${2}.conf" ]; then
+    echo "${2}.conf already enabled"
+  elif [ -f "/etc/nginx/sites-available/${2}.conf" ]; then
     cwd=$(pwd)
     cd /etc/nginx/sites-enabled
-    ln -s "../sites-available/${1}.conf" .
+    ln -s "../sites-available/${2}.conf" .
     cd "$cwd"
-    echo "${1}.conf enabled"
+    echo "${2}.conf enabled"
     sudo service nginx restart
   else
-    echo "${1}.conf not found"
+    echo "${2}.conf not found"
   fi
   ;;
 
 "nginxdisconf")
-  if [ -f "/etc/nginx/sites-enabled/${1}.conf" ]; then
-    rm "/etc/nginx/sites-enabled/${1}.conf"
-    echo "${1}.conf disabled"
+  if [ -f "/etc/nginx/sites-enabled/${2}.conf" ]; then
+    rm "/etc/nginx/sites-enabled/$2}.conf"
+    echo "${2}.conf disabled"
     sudo service nginx restart
   else
-    echo "${1}.conf already disabled"
+    echo "${2}.conf already disabled"
   fi
+  ;;
+
+"make:site")
+  touch "/etc/nginx/sites-available/${2}.conf"
+  mkdir "/var/www/sites/${2}"
   ;;
 
 *)
@@ -84,6 +89,7 @@ case $1 in
   dev laravel:mk:storage [dir]  Create storage folders
   dev clear-logs [dir]          Disable nginx conf
   dev nginxenconf <conf name>   Enable nginx conf
-  dev nginxdisconf <conf name>  Disable nginx conf"
+  dev nginxdisconf <conf name>  Disable nginx conf
+  dev make:site <site name>     Create site default folders"
   ;;
 esac

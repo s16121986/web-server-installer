@@ -1,10 +1,12 @@
 #!/bin/bash
 
-if [ -z $(which git) ]; then
-  sudo apt -y install git
+sudo apt -y install git
 
-  cp ./conf/git/.gitconfig /home/dev
-  cp ./conf/git/.gitignore /home/dev
+BOOT_PATH="/tmp/wsl-boot"
+
+if [ ! -f ~/.gitconfig ]; then
+  cp "$BOOT_PATH/conf/git/.gitconfig" ~
+  cp "$BOOT_PATH/conf/git/.gitignore" ~
 else
   echo "Git already installed"
 fi

@@ -2,10 +2,15 @@
 
 set -e
 
+BOOT_PATH="/tmp/wsl-boot"
 v="${1:-help}"
 
-if [ -f "./bin/${v}.sh" ]; then
-  "./bin/${v}.sh"
-else
-  ./bin/help.sh
-fi
+case $v in
+*)
+  if [ -f "$BOOT_PATH/bin/${v}.sh" ]; then
+    "$BOOT_PATH/bin/${v}.sh"
+  else
+    "$BOOT_PATH/bin/help.sh"
+  fi
+  ;;
+esac
