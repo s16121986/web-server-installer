@@ -11,5 +11,5 @@ if [ -z $(which mariadb) ]; then
   sudo mysql -e "GRANT ALL PRIVILEGES ON * . * TO 'dev'@'%';"
 
 else
-  echo "Mysql already installed"
+  echo "SKIPPED: Mysql already installed"
 fi

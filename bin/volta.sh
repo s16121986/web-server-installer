@@ -2,20 +2,19 @@
 
 set -e
 
-if [ -z $(which volta) ]; then
+if [ ! -d ~/.volta ]; then
   curl https://get.volta.sh | bash
+
+  u=$(id -nu 1000)
 
   echo "
 export VOLTA_HOME=\"$HOME/.volta\"
 export PATH=\"$VOLTA_HOME/bin:$PATH\"
 " >>~/.bashrc
 
-  export VOLTA_HOME=~/.volta
-  export PATH="$VOLTA_HOME/bin:$PATH"
-
-  volta install node@latest
+  "/home/$u/.volta/bin/volta" install node@latest
 else
-  echo "Volta already installed"
+  echo "SKIPPED: Volta already installed"
 fi
 
 #echo "volta list"

@@ -16,7 +16,7 @@ sudo touch /etc/wsl.conf
 sudo echo -e "[boot]\nsystemd=true">/etc/wsl.conf
 ```
 
-### 3. Restart WSL
+### 3. Restart WSL (Windows Terminal)
 
 ```shell
 wsl -t debian

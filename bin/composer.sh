@@ -9,5 +9,5 @@ if [ ! -f /usr/local/bin/composer ]; then
   sudo mv composer.phar /usr/local/bin/composer
 #chmod 0660 /usr/local/bin/composer
 else
-  echo "Composer already installed"
+  echo "SKIPPED: Composer already installed"
 fi

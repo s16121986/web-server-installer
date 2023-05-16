@@ -3,7 +3,7 @@
 set -e
 
 cwd=$(pwd)
-u=$(id -nu 1000)
+#u=$(id -nu 1000)
 BOOT_PATH="/tmp/wsl-boot"
 
 if [ -z $(which nginx) ]; then
@@ -22,8 +22,6 @@ if [ -z $(which nginx) ]; then
   sudo chown 1000:1000 /etc/nginx/sites-enabled
 
   sudo chown -R 1000:1000 /etc/nginx/nginx.conf
-
-  cp -a "$BOOT_PATH/conf/nginx/." /etc/nginx
 else
-  echo "Nginx already installed"
+  echo "SKIPPED: Nginx already installed"
 fi

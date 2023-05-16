@@ -1,8 +1,7 @@
 #!/bin/bash
 
-if [ -z $(which zip) ]; then
-  sudo apt -y install zip
-fi
+sudo apt -y install zip
+sudo apt -y install curl
 
 cwd=$(pwd)
 BOOT_PATH="/tmp/wsl-boot"
