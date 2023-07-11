@@ -17,13 +17,12 @@ full)
   "$BOOT_PATH/bin/memcached.sh"
   "$BOOT_PATH/bin/supervisor.sh"
   "$BOOT_PATH/bin/volta.sh"
-  "$BOOT_PATH/bin/www.sh"
   ;;
 *)
   if [ -f "$BOOT_PATH/bin/${v}.sh" ]; then
     "$BOOT_PATH/bin/${v}.sh"
   else
-    "$BOOT_PATH/bin/help.sh"
+    "$BOOT_PATH/lib/help.sh"
   fi
   ;;
 esac

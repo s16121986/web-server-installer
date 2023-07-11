@@ -1,9 +1,5 @@
 #!/bin/bash
 
-if [ -z $(which curl) ]; then
-  sudo apt -y install curl
-fi
-
 u=$(id -nu 1000)
 BOOT_PATH="/tmp/wsl-boot"
 

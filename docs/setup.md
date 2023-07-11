@@ -32,6 +32,12 @@ wget -qO- https://raw.githubusercontent.com/s16121986/linux-bootstrap/wsl-debian
 
 ### 5. Setup windows hosts
 
+```shell
+alias boot="/tmp/wsl-boot/install.sh"
+```
+
+### 6. Setup windows hosts
+
 ```text
 #C:\Windows\System32\drivers\etc
 
