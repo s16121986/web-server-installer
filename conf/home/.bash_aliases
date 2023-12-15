@@ -54,3 +54,10 @@ alias .sites="cd /var/www/sites"
 alias .oex="cd /var/www/sites/online-express.ru"
 alias .gts="cd /var/www/sites/gotostans.com"
 alias .ust="cd /var/www/sites/ustabor.uz"
+
+# custom dev scripts aliases
+for file in "$HOME/.bash"/*; do
+    if [ -f "$file" ]; then 
+		alias "$(basename -s .sh ${file})"="${file}"
+    fi 
+done
