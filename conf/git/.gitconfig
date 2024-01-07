@@ -11,6 +11,7 @@
 	autocrlf = input
 	safecrlf = warn
 	fileMode = false
+	excludesfile = ~/.gitignore
 [color]
 	ui = auto
 [color "branch"]
