@@ -2,10 +2,12 @@
 
 set -e
 
-BOOT_PATH="/tmp/wsl-boot"
 phpKey="php8.2"
+ROOT_PATH=$(dirname $(dirname "${0}"))
 
-"$BOOT_PATH/lib/php-repository.sh"
+source "${ROOT_PATH}/lib/echo.sh"
+
+"$ROOT_PATH/bin/php-repository.sh"
 
 if [ ! -f /usr/bin/php8.2 ]; then
   sudo apt -y -q install "${phpKey}-cli"
@@ -27,5 +29,5 @@ if [ ! -f /usr/bin/php8.2 ]; then
 
   sudo systemctl enable php8.2-fpm
 else
-  echo "SKIPPED: PHP8.2 already installed"
+  skipped "PHP8.2 already installed"
 fi

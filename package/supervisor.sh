@@ -1,12 +1,12 @@
 #!/bin/bash
 
-set -e
+ROOT_PATH=$(dirname $(dirname "${0}"))
 
-BOOT_PATH="/tmp/wsl-boot"
+source "${ROOT_PATH}/lib/echo.sh"
 
 if [ -z $(which supervisor) ]; then
   sudo apt -y install supervisor
   sudo systemctl enable supervisor
 else
-  echo "SKIPPED: Supervisor already installed"
+  skipped "Supervisor already installed"
 fi

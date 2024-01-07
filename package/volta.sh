@@ -1,6 +1,8 @@
 #!/bin/bash
 
-set -e
+ROOT_PATH=$(dirname $(dirname "${0}"))
+
+source "${ROOT_PATH}/lib/echo.sh"
 
 if [ ! -d ~/.volta ]; then
   curl https://get.volta.sh | bash
@@ -14,7 +16,7 @@ export PATH=\"$VOLTA_HOME/bin:$PATH\"
 
   "/home/$u/.volta/bin/volta" install node@latest
 else
-  echo "SKIPPED: Volta already installed"
+  skipped "Volta already installed"
 fi
 
 #echo "volta list"

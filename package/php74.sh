@@ -1,13 +1,14 @@
 #!/bin/bash
 
-set -e
+ROOT_PATH=$(dirname $(dirname "${0}"))
+phpKey="php7.4"
+priority=10
 
-BOOT_PATH="/tmp/wsl-boot"
-phpKey="php8.1"
+source "${ROOT_PATH}/lib/echo.sh"
 
-"$BOOT_PATH/lib/php-repository.sh"
+"$ROOT_PATH/bin/php-repository.sh"
 
-if [ ! -f /usr/bin/php8.1 ]; then
+if [ ! -f /usr/bin/php7.4 ]; then
   sudo apt -y -q install "${phpKey}-cli"
   sudo apt -y -q install "${phpKey}-common"
   sudo apt -y -q install "${phpKey}-opcache"
@@ -23,9 +24,13 @@ if [ ! -f /usr/bin/php8.1 ]; then
   sudo apt -y -q install "${phpKey}-memcached"
   sudo apt -y -q install "${phpKey}-fpm"
 
-  sudo chown -R 1000:1000 /etc/php/8.1/fpm
+  #sudo update-alternatives --install /usr/local/bin/php php "/opt/remi/${phpKey}/root/bin/php" "${priority}"
 
-  sudo systemctl enable php8.1-fpm
+  #ln -s "/opt/remi/php/${1}/bin/php" "/usr/bin/${phpKey}"
+
+  sudo chown -R 1000:1000 /etc/php/7.4/fpm
+
+  sudo systemctl enable php7.4-fpm
 else
-  echo "SKIPPED: PHP8.1 already installed"
+  skipped "PHP7.4 already installed"
 fi

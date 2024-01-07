@@ -1,3 +1,5 @@
 #!/bin/bash
 
-rm -rf /tmp/wsl-boot
+ROOT_PATH=$(dirname $(dirname "${0}"))
+
+rm -rf $ROOT_PATH

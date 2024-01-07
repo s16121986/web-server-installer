@@ -56,7 +56,7 @@ alias .gts="cd /var/www/sites/gotostans.com"
 alias .ust="cd /var/www/sites/ustabor.uz"
 
 # custom dev scripts aliases
-for file in "$HOME/.bash"/*; do
+for file in "$HOME/.bin"/*; do
     if [ -f "$file" ]; then 
 		alias "$(basename -s .sh ${file})"="${file}"
     fi 

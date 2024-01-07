@@ -1,10 +1,10 @@
 #!/bin/bash
 
-set -e
+ROOT_PATH=$(dirname $(dirname "${0}"))
 
-cwd=$(pwd)
+source "${ROOT_PATH}/lib/echo.sh"
+
 #u=$(id -nu 1000)
-BOOT_PATH="/tmp/wsl-boot"
 
 if [ -z $(which nginx) ]; then
 
@@ -23,5 +23,12 @@ if [ -z $(which nginx) ]; then
 
   sudo chown -R 1000:1000 /etc/nginx/nginx.conf
 else
-  echo "SKIPPED: Nginx already installed"
+  skipped "Nginx already installed"
+fi
+
+# WWW setup
+if [ ! -d /var/www/sites ]; then
+  sudo mkdir -p /var/www/sites
+  sudo mkdir /var/www/libs
+  sudo chown -R 1000:1000 /var/www
 fi

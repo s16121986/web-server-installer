@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 function version_major {
   local delimiter=.
@@ -7,9 +6,10 @@ function version_major {
   echo "${array[0]}.${array[1]}"
 }
 
-BOOT_PATH="/tmp/wsl-boot"
-cwd=$(pwd)
-SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_PATH=$(dirname $(dirname "${0}"))
+
+source "${ROOT_PATH}/lib/echo.sh"
+
 VER="${1:-5.2.1}"
 THEME_VER="$(version_major "${VER}")"
 INSTALL_PATH=${2:-/var/www/libs/phpmyadmin}
@@ -33,9 +33,7 @@ unzip -q darkwolf-*.zip
 rm /tmp/darkwolf-*.zip
 sudo mv /tmp/darkwolf "${INSTALL_PATH}/themes"
 
-cd "${cwd}"
+sudo cp "$ROOT_PATH/conf/phpmyadmin/config.inc.php" "${INSTALL_PATH}/"
 
-sudo cp "$BOOT_PATH/conf/phpmyadmin/config.inc.php" "${INSTALL_PATH}/"
-
-sudo cp "$BOOT_PATH/conf/phpmyadmin/phpmyadmin.conf" "/etc/nginx/conf.d/"
+sudo cp "$ROOT_PATH/conf/phpmyadmin/phpmyadmin.conf" "/etc/nginx/conf.d/"
 sudo chown -R 1000:1000 /etc/nginx/conf.d/phpmyadmin.conf

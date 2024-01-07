@@ -1,6 +1,8 @@
 #!/bin/bash
 
-set -e
+ROOT_PATH=$(dirname $(dirname "${0}"))
+
+source "${ROOT_PATH}/lib/echo.sh"
 
 if [ -z $(which mariadb) ]; then
 
@@ -11,5 +13,5 @@ if [ -z $(which mariadb) ]; then
   sudo mysql -e "GRANT ALL PRIVILEGES ON * . * TO 'dev'@'%';"
 
 else
-  echo "SKIPPED: Mysql already installed"
+  skipped "Mysql already installed"
 fi

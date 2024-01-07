@@ -1,12 +1,14 @@
 #!/bin/bash
 
-BOOT_PATH="/tmp/wsl-boot"
+ROOT_PATH=$(dirname $(dirname "${0}"))
+
+source "${ROOT_PATH}/lib/echo.sh"
 
 if [ ! -f ~/.gitconfig ]; then
   sudo apt -y install git
   
-  cp "$BOOT_PATH/conf/git/.gitconfig" ~
-  cp "$BOOT_PATH/conf/git/.gitignore" ~
+  cp "$ROOT_PATH/conf/git/.gitconfig" ~
+  cp "$ROOT_PATH/conf/git/.gitignore" ~
 
   read -p "Enter your git login: " login
   read -p "Enter your display name: " name
@@ -18,5 +20,5 @@ if [ ! -f ~/.gitconfig ]; then
   sed -i "s/:email/$email/g" ~/.gitconfig
   sed -i "s/:token/$token/g" ~/.gitconfig
 else
-  echo "SKIPPED: Git already installed"
+  skipped "Git already installed"
 fi
