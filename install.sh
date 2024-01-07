@@ -6,6 +6,11 @@ BOOT_PATH="/tmp/wsl-boot"
 v="${1:-help}"
 
 case $v in
+lnmp)
+  "$BOOT_PATH/bin/nginx.sh"
+  "$BOOT_PATH/bin/mysql.sh"
+  "$BOOT_PATH/bin/php82.sh"
+  ;;
 full)
   "$BOOT_PATH/bin/git.sh"
   "$BOOT_PATH/bin/nginx.sh"
