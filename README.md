@@ -3,7 +3,7 @@
 ```shell
 sudo apt -y install wget
 
-wget -qO- https://raw.githubusercontent.com/s16121986/linux-bootstrap/wsl-debian/setup.sh | bash
+wget -qO- https://raw.githubusercontent.com/s16121986/web-server-installer/wsl-debian/setup.sh | bash
 
 alias wsi="/tmp/web-server-installer/bin/run.sh"
 
