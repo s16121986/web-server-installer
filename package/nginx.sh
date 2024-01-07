@@ -11,17 +11,24 @@ if [ -z $(which nginx) ]; then
   sudo apt -y -q install nginx
   sudo systemctl enable nginx
 
-  sudo mkdir -p /etc/nginx/conf.d
-  sudo chown -R 1000:1000 /etc/nginx/conf.d
-  find /etc/nginx/conf.d -type f -exec sudo chmod 0644 {} \;
+  sudo chgrp 1000 /etc/nginx/nginx.conf
+  sudo chmod g+rw /etc/nginx/nginx.conf
 
-  sudo mkdir -p /etc/nginx/sites-available
-  sudo chown 1000:1000 /etc/nginx/sites-available
+  folders=(conf.d sites-available presets snippets)
+  for i in ${folders[@]}; do
+    sudo mkdir -p "/etc/nginx/${i}"
 
-  sudo mkdir -p /etc/nginx/sites-enabled
-  sudo chown 1000:1000 /etc/nginx/sites-enabled
+    if [ -d "$ROOT_PATH/conf/nginx/${1}" ]; then
+      sudo cp "$ROOT_PATH/conf/nginx/${1}"/* "/etc/nginx/${1}"
+    fi
+  done
 
-  sudo chown -R 1000:1000 /etc/nginx/nginx.conf
+  for i in ${folders[@]}; do
+    sudo chgrp -R 1000 "/etc/nginx/${i}"
+    sudo chmod -R g+rw "/etc/nginx/${i}"
+  done
+
+  #find /etc/nginx/conf.d -type f -exec sudo chmod 0644 {} \;
 else
   skipped "Nginx already installed"
 fi

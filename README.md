@@ -12,6 +12,12 @@ wsi help
 
 ## WSL Setup
 
+### 1. Install Debian (Windows Terminal)
+
+```shell
+ wsl --install debian
+```
+
 ### 1. Disable sudo password
 
 ```shell
