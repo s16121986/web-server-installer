@@ -1,15 +1,13 @@
 #!/bin/bash
 
-set -e
+function wsi_install_php82 {
+  wsi_ensure_package_installable php82 "PHP8.2 already installed"
 
-phpKey="php8.2"
-ROOT_PATH=$(dirname $(dirname "${0}"))
+  phpKey="php8.2"
 
-source "${ROOT_PATH}/lib/echo.sh"
+  source "${WSI_LIB_PATH}/php-repository.sh"
+  wsi_init_php_repository
 
-"$ROOT_PATH/bin/php-repository.sh"
-
-if [ ! -f /usr/bin/php8.2 ]; then
   sudo apt -y -q install "${phpKey}-cli"
   sudo apt -y -q install "${phpKey}-common"
   sudo apt -y -q install "${phpKey}-opcache"
@@ -28,6 +26,4 @@ if [ ! -f /usr/bin/php8.2 ]; then
   sudo chown -R 1000:1000 /etc/php/8.2/fpm
 
   sudo systemctl enable php8.2-fpm
-else
-  skipped "PHP8.2 already installed"
-fi
+}

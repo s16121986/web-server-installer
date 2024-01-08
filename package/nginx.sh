@@ -1,12 +1,9 @@
 #!/bin/bash
 
-ROOT_PATH=$(dirname $(dirname "${0}"))
+function wsi_install_nginx {
+  wsi_ensure_package_installable nginx "Nginx already installed"
 
-source "${ROOT_PATH}/lib/echo.sh"
-
-#u=$(id -nu 1000)
-
-if [ -z $(which nginx) ]; then
+  #u=$(id -nu 1000)
 
   sudo apt -y -q install nginx
   sudo systemctl enable nginx
@@ -18,8 +15,8 @@ if [ -z $(which nginx) ]; then
   for i in ${folders[@]}; do
     sudo mkdir -p "/etc/nginx/${i}"
 
-    if [ -d "$ROOT_PATH/conf/nginx/${1}" ]; then
-      sudo cp "$ROOT_PATH/conf/nginx/${1}"/* "/etc/nginx/${1}"
+    if [ -d "$WSI_CONF_PATH/nginx/${1}" ]; then
+      sudo cp "$WSI_CONF_PATH/nginx/${1}"/* "/etc/nginx/${1}"
     fi
   done
 
@@ -29,13 +26,11 @@ if [ -z $(which nginx) ]; then
   done
 
   #find /etc/nginx/conf.d -type f -exec sudo chmod 0644 {} \;
-else
-  skipped "Nginx already installed"
-fi
 
-# WWW setup
-if [ ! -d /var/www/sites ]; then
-  sudo mkdir -p /var/www/sites
-  sudo mkdir /var/www/libs
-  sudo chown -R 1000:1000 /var/www
-fi
+  # WWW setup
+  if [ ! -d /var/www/sites ]; then
+    sudo mkdir -p /var/www/sites
+    sudo mkdir /var/www/libs
+    sudo chown -R 1000:1000 /var/www
+  fi
+}

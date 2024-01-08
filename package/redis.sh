@@ -1,12 +1,8 @@
 #!/bin/bash
 
-ROOT_PATH=$(dirname $(dirname "${0}"))
+function wsi_install_redis {
+  wsi_ensure_package_installable redis "Redis already installed"
 
-source "${ROOT_PATH}/lib/echo.sh"
-
-if [ -z $(which redis-cli) ]; then
   sudo apt -y install redis
   sudo systemctl enable redis
-else
-  skipped "Redis already installed"
-fi
+}

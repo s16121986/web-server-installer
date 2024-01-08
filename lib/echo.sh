@@ -16,7 +16,7 @@ export GRAY
 export YELLOW
 export NC
 
-function str_pad_with_dot {
+function _str_pad_with_dot {
   size=${#1}
   echo -en "${1} ${GRAY}"
 
@@ -30,7 +30,7 @@ function str_pad_with_dot {
 function dotted_line {
   #echo -n "  ${1}"
   #printf "%-20s" ${1}
-  str_pad_with_dot "${1}"
+  _str_pad_with_dot "${1}"
   echo -e " ${2}"
 }
 
@@ -52,8 +52,4 @@ function title {
 
 function comment {
   echo -e "${GRAY}${1}${NC}"
-}
-
-function skipped {
-  echo -e "SKIPPED: ${GRAY}${1}${NC}"
 }

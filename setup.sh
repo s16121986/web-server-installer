@@ -16,11 +16,12 @@ unzip -q wsl-debian.zip
 rm /tmp/wsl-debian.zip
 mv /tmp/web-server-installer-wsl-debian "${BOOT_PATH}"
 
-find "${BOOT_PATH}/bin" -name "*.sh" -exec chmod u+x {} \;
-find "${BOOT_PATH}/package" -name "*.sh" -exec chmod u+x {} \;
+chmod u+x "${BOOT_PATH}/wsi.sh"
+#find "${BOOT_PATH}/bin" -name "*.sh" -exec chmod u+x {} \;
+#find "${BOOT_PATH}/package" -name "*.sh" -exec chmod u+x {} \;
 
 #rm "${BOOT_PATH}/setup.sh"
 
 echo -e "=> Append the following lines to the correct file yourself:"
-command printf "alias wsi=\"${BOOT_PATH}/bin/run.sh\""
+command printf "alias wsi=\"${BOOT_PATH}/wsi.sh\""
 #echo -e "\n"

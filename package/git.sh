@@ -1,14 +1,12 @@
 #!/bin/bash
 
-ROOT_PATH=$(dirname $(dirname "${0}"))
+function wsi_install_git {
+  wsi_ensure_package_installable git "Git already installed"
 
-source "${ROOT_PATH}/lib/echo.sh"
-
-if [ ! -f ~/.gitconfig ]; then
   sudo apt -y install git
-  
-  cp "$ROOT_PATH/conf/git/.gitconfig" ~
-  cp "$ROOT_PATH/conf/git/.gitignore" ~
+
+  cp "$WSI_CONF_PATH/git/.gitconfig" ~
+  cp "$WSI_CONF_PATH/git/.gitignore" ~
 
   read -p "Enter your git login: " login
   read -p "Enter your display name: " name
@@ -19,6 +17,4 @@ if [ ! -f ~/.gitconfig ]; then
   sed -i "s/:name/$name/g" ~/.gitconfig
   sed -i "s/:email/$email/g" ~/.gitconfig
   sed -i "s/:token/$token/g" ~/.gitconfig
-else
-  skipped "Git already installed"
-fi
+}

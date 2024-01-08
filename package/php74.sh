@@ -1,14 +1,14 @@
 #!/bin/bash
 
-ROOT_PATH=$(dirname $(dirname "${0}"))
-phpKey="php7.4"
-priority=10
+function wsi_install_php74 {
+  wsi_ensure_package_installable php74 "PHP7.4 already installed"
 
-source "${ROOT_PATH}/lib/echo.sh"
+  phpKey="php7.4"
+  priority=10
 
-"$ROOT_PATH/bin/php-repository.sh"
+  source "${WSI_LIB_PATH}/php-repository.sh"
+  wsi_init_php_repository
 
-if [ ! -f /usr/bin/php7.4 ]; then
   sudo apt -y -q install "${phpKey}-cli"
   sudo apt -y -q install "${phpKey}-common"
   sudo apt -y -q install "${phpKey}-opcache"
@@ -31,6 +31,4 @@ if [ ! -f /usr/bin/php7.4 ]; then
   sudo chown -R 1000:1000 /etc/php/7.4/fpm
 
   sudo systemctl enable php7.4-fpm
-else
-  skipped "PHP7.4 already installed"
-fi
+}

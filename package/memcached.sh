@@ -1,13 +1,9 @@
 #!/bin/bash
 
-ROOT_PATH=$(dirname $(dirname "${0}"))
+function wsi_install_memcached {
+  wsi_ensure_package_installable memcached "Memcached already installed"
 
-source "${ROOT_PATH}/lib/echo.sh"
-
-if [ -z $(which memcached) ]; then
   sudo apt -y install memcached
 
   sudo systemctl enable memcached
-else
-  skipped "Memcached already installed"
-fi
+}
