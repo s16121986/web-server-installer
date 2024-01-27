@@ -16,7 +16,7 @@ function wsi_install_nginx {
     sudo mkdir -p "/etc/nginx/${i}"
 
     if [ -d "$WSI_CONF_PATH/nginx/${1}" ]; then
-      sudo cp "$WSI_CONF_PATH/nginx/${1}"/* "/etc/nginx/${1}"
+      sudo cp -r "$WSI_CONF_PATH/nginx/${1}"/* "/etc/nginx/${1}"
     fi
   done
 

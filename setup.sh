@@ -24,4 +24,5 @@ chmod u+x "${BOOT_PATH}/wsi.sh"
 
 echo -e "=> Append the following lines to the correct file yourself:"
 command printf "alias wsi=\"${BOOT_PATH}/wsi.sh\""
+echo ""
 #echo -e "\n"
